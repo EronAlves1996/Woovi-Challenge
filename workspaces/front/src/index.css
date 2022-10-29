@@ -1,4 +1,31 @@
 :root {
+
+/* color-pallette */
+
+  /* darker-palette */
+  --darker-black: #110E11;
+  --darker-green:#486011;
+  --darker-white:#F0F000;
+  --darker-darker-green: #002515;
+  --darker-blue: #1E3444;
+
+ /* default-palette */
+ --default-black: #221D23;
+ --default-green: #95C623;
+ --default-white: #FFFFF6;
+ --default-darker-green: #004F2D;
+ --default-blue: #406E8E;
+
+ /* brighter-palette */
+ --brighter-black: #736376;
+ --brighter-green: #BEE465;
+ --brighter-white: #FFFFF8;
+ --brighter-darker-green:#00E07F;
+ --brighter-blue:#74A0C0;
+
+ 
+/* end-palette */
+
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 24px;
@@ -6,7 +33,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: var(--default-white);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
