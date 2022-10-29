@@ -1,0 +1,12 @@
+{
+  "name": "woovi-challenge",
+  "version": "1.0.0",
+  "description": "Projeto feito como requisito do processo de seleção da Woovi",
+  "main": "index.js",
+  "author": "Eron Alves <eron.alves@rocketmail.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces":[
+    "workspaces/*"
+  ]
+}
