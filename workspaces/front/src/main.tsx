@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App'
+import LoginForm from './index/Login-Form';
 import './index.css'
 import {
   createBrowserRouter,
@@ -11,7 +11,7 @@ import {
 const router = createBrowserRouter ([
   {
     path:'/',
-    element: <App />
+    element: <LoginForm />
   }
 ])
 
