@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import LoginForm from './index/Login-Form';
+import { LoginForm } from './index/Login-Form';
 import './index.css'
 import {
   createBrowserRouter,

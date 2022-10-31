@@ -1,17 +1,27 @@
-import '../App.css'
-import { Form } from './State-Form';
+import { useState } from "react"
 
-function LoginForm() {
+export function LoginForm() {
+    const returnState = (param:any) => {
+        let [state, setState] = useState(param);
+        return {
+            state, setState
+        }
+    };
 
-  const [Email, Password] = [Form(), Form()];
+    const formSettings = [
+        {name: "email", type: "text", label:"E-mail", ...returnState("")},
+        {name: "password", type: "password", label: "password", ...returnState("")}
+    ]
 
-  return (
-      <form>
-        <Email.getForm name="email" type="email" label="E-mail" />
-        <Password.getForm name="password" type="password" label="Senha" />
-        <button type="button" onClick={()=>console.log(Email.getState(), Password.getState())} >Login</button>
-      </form>
-  );  
+    return (
+        <form>
+            {formSettings.map(form => (
+                <div>
+                    <label htmlFor={form.name}>{form.label}</label>
+                    <input type={form.type} id={form.name} value={form.state} onChange={(e)=>form.setState(e.target.value)}/>
+                </div>
+            ))}
+            <button type="button" onClick={()=>formSettings.forEach(form => console.log(form.state))}>Enviar</button>
+        </form>
+    )
 }
-
-export default LoginForm;
