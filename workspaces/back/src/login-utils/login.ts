@@ -12,7 +12,7 @@ const userType = new graphql.GraphQLObjectType({
     }
 });
 
-const loginInformationType = new graphql.GraphQLObjectType({
+const loginInformationType = new graphql.GraphQLInputObjectType({
     name: "LoginInformation",
     fields: {
         email: { type: graphql.GraphQLString },
@@ -25,14 +25,9 @@ const checkLogin = new graphql.GraphQLObjectType({
     fields: {
         loginInfo: {
             type: userType,
-            args: {
-                email: { type: graphql.GraphQLString },
-                password: { type: graphql.GraphQLString }
-            },
-            resolve: async (_, {email, password}) => {
-                let obj = (await dao.read(email, password)).toObject()
-                console.log(obj);
-                return obj
+            args: {loginInformation: {type: loginInformationType}},
+            resolve: async (_, {loginInformation: {email, password}}) => {
+                return (await dao.read(email, password)).toObject();
             }
         }
     }
