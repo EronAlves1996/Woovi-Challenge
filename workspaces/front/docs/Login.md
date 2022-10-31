@@ -12,6 +12,6 @@ Sendo assim, a informação sobre quem é o usuário deve ser única e uma delas
 ## Flow
 
 1. O usuário digita o seu e-mail e senha e envia a informação;
-2. Após isso, no front-end, a informação da senha é codificada. O esquema de validação será Basic, encaminhando uma requisição com o Header "Authorization" para o back-end;
+2. Após isso, no front-end, a informação da senha é codificada. O esquema de validação seguirá através de um requisição POST, formato graphQL.
 3. O back-end valida esta informação e retorna com o status de autorização e um token único de persistência de sessão (JWT);
 4. O usuário é logado ou lhe é negado o login.

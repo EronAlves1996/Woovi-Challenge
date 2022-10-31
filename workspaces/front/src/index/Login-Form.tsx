@@ -9,7 +9,7 @@ function LoginForm() {
         {[email, password].map(el => el.getForm())}
         <button type="button" onClick={() => console.log(email.getState(), password.getState())} >Login</button>
       </form>
-  );
+  );  
 }
 
 export default LoginForm;

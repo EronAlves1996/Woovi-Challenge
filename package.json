@@ -6,7 +6,10 @@
   "author": "Eron Alves <eron.alves@rocketmail.com>",
   "license": "MIT",
   "private": true,
-  "workspaces":[
+  "workspaces": [
     "workspaces/*"
-  ]
+  ],
+  "dependencies": {
+    "jest": "^29.2.2"
+  }
 }
