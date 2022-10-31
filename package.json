@@ -8,8 +8,5 @@
   "private": true,
   "workspaces": [
     "workspaces/*"
-  ],
-  "dependencies": {
-    "jest": "^29.2.2"
-  }
+  ]
 }
