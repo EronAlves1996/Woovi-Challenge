@@ -2,12 +2,14 @@ import '../App.css'
 import { Form } from './State-Form';
 
 function LoginForm() {
-  const [email, password] = [Form({type: "email", name:"email", label:"E-mail"}), Form({type: "password", name:"password", label: "Senha"})];
+
+  const [Email, Password] = [Form(), Form()];
 
   return (
       <form>
-        {[email, password].map(el => el.getForm())}
-        <button type="button" onClick={() => console.log(email.getState(), password.getState())} >Login</button>
+        <Email.getForm name="email" type="email" label="E-mail" />
+        <Password.getForm name="password" type="password" label="Senha" />
+        <button type="button" onClick={()=>console.log(Email.getState(), Password.getState())} >Login</button>
       </form>
   );  
 }
