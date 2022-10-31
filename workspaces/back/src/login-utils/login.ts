@@ -1,5 +1,6 @@
 import { graphqlHTTP } from "koa-graphql";
 import graphql from "graphql";
+import { dao } from "./loginDao.js";
 
 const userType = new graphql.GraphQLObjectType({
     name: "User",
@@ -23,13 +24,15 @@ const checkLogin = new graphql.GraphQLObjectType({
     name: "Query",
     fields: {
         loginInfo: {
-            type: loginInformationType,
+            type: userType,
             args: {
                 email: { type: graphql.GraphQLString },
                 password: { type: graphql.GraphQLString }
             },
-            resolve: (_, {email, password}) => {
-                return {email, password};
+            resolve: async (_, {email, password}) => {
+                let obj = (await dao.read(email, password)).toObject()
+                console.log(obj);
+                return obj
             }
         }
     }
