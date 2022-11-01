@@ -3,11 +3,11 @@ import mongoose from "mongoose";
 
 dotenv.config();
 
-async function main(){
-    await mongoose.connect(`${process.env.DB_TYPE}://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_COLLECTION}`);
-}
-
-main();
+await (async function main(){
+    const val = `${process.env.DB_TYPE}://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_COLLECTION}`;
+    console.log(val);
+    await mongoose.connect(val);
+})();
 
 const userSchema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
     password: mongoose.Schema.Types.String
 });
 
-const user = mongoose.model("user", userSchema);
+const user = mongoose.model("user", userSchema, "users");
 
 export const dao = {
     read: async (email: string, password: string) => {

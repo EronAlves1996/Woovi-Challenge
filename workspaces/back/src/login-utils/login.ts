@@ -1,11 +1,9 @@
-import { graphqlHTTP } from "koa-graphql";
 import graphql from "graphql";
 import { dao } from "./loginDao.js";
 
 const userType = new graphql.GraphQLObjectType({
     name: "User",
     fields: {
-        id: { type: graphql.GraphQLString },
         name: { type: graphql.GraphQLString },
         email: { type: graphql.GraphQLString },
         password: { type: graphql.GraphQLString }

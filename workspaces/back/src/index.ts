@@ -1,4 +1,5 @@
 import Koa from "koa";
+import cors from "@koa/cors";
 import Router  from '@koa/router';
 import { graphqlHTTP } from "koa-graphql";
 import { schema as nschema } from "./login-utils/login.js";
@@ -7,7 +8,7 @@ const app = new Koa();
 const router = new Router();
 
 router.all(
-  '/login-utils',
+  '/api',
   graphqlHTTP({
     schema: nschema,
     graphiql: true,
@@ -20,6 +21,7 @@ router.get("/", (ctx, next)=>{
 })
 
 app
+.use(cors())
 .use(router.routes())
   .use(router.allowedMethods());
 

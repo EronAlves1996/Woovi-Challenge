@@ -37,8 +37,8 @@ export function LoginForm() {
 
     const tryLogin = () => {
         const loadedQuery = loadQuery(RelayEnvironment, loginQuery, {
-            $email: formSettings[0].state,
-            $password: formSettings[1].state
+            email: formSettings[0].state,
+            password: formSettings[1].state
         });
         const data = usePreloadedQuery(loginQuery, loadedQuery);
         const navigate = useNavigate();
