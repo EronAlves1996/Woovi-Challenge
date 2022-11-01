@@ -20,7 +20,7 @@ const router = createBrowserRouter([
   {
     path: '/logged',
     element:
-      <ErrorBoundary fallback={<Navigate to="/" state={{ msg: "Usuário ou senha incorretos" }} />} >
+      <ErrorBoundary fallback={<Navigate to="/" state={{ msg: "Dados incorretos ou tentativa de acesso a recursos proibidos" }} />} >
         <Suspense fallback={"Loading..."} >
           <Logged />
         </Suspense>
