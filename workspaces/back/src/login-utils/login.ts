@@ -28,21 +28,16 @@ const checkLogin = new graphql.GraphQLObjectType({
     fields: {
         loginInfo: {
             type: userType,
-            args: {loginInformation: {type: loginInformationType}},
-            resolve: async (_, {loginInformation: {email, password}}, ctx) => {
-                try{
+            args: { loginInformation: { type: loginInformationType } },
+            resolve: async (_, { loginInformation: { email, password } }, ctx) => {
+                const context: Context = ctx;
+                try {
                     const userRegistry = (await dao.read(email, password)).toObject();
-                    const context: Context = ctx;
-                    const jws = jwt.sign({ email: userRegistry.email }, process.env.JWT_SECRET);
-                    context.cookies.set("JWT_Login", jws);
+                    const jws = jwt.sign({ user: userRegistry.name }, process.env.JWT_SECRET);
+                    context.cookies.set("JWT-Login", jws, {path: "127.0.0.1/"});
                     return userRegistry;
-                } catch(ex){
-                    const msg = "User not founded. Please verify your data"; 
-                    return {
-                        email: msg,
-                        password: msg,
-                        name: msg
-                    }
+                } catch(ex) {
+                    throw new Error("Invalid credentials");
                 }
             }
         }

@@ -5,7 +5,6 @@ import './index.css'
 import {
   createBrowserRouter,
   RouterProvider,
-  Route,
   Navigate
 } from "react-router-dom";
 import { Logged } from './index/Logged';

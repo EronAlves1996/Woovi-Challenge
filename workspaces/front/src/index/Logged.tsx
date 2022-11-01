@@ -1,7 +1,6 @@
-import { GraphQLTaggedNode, loadQuery, usePreloadedQuery, useQueryLoader } from "react-relay";
+import { usePreloadedQuery, useQueryLoader } from "react-relay";
 import { useLocation } from "react-router";
 import graphql from "babel-plugin-relay/macro";
-import RelayEnvironment from "../RelayEnvironment";
 import { useEffect } from "react";
 
 const LoggedQuery = graphql`
@@ -15,27 +14,23 @@ query LoggedQuery($email: String!, $password: String!){
 }
 `;
 
-function makeQuery(query: GraphQLTaggedNode, vars: object) {
-    return loadQuery(RelayEnvironment, query, {
-        ...vars
-    })
-};
-
 export function Logged(props: any) {
     const { state } = useLocation();
+    if(state.user){
+        return <h1> You are logged in {state.user}</h1>
+    } else {
+        const [queryReference, loadQuery, disposeQuery] = useQueryLoader(LoggedQuery);
+        useEffect(()=>{
+            loadQuery({email: state.email, password: state.password});
+            return ()=> disposeQuery();
+        }, [loadQuery, disposeQuery, state])
     
-    const [queryReference, loadQuery, disposeQuery] = useQueryLoader(LoggedQuery);
-
-    useEffect(()=>{
-        loadQuery({email: state.email, password: state.password});
-        return ()=> disposeQuery();
-    }, [loadQuery, disposeQuery, state])
-
-    return (
-        <div>
-            {queryReference != null ? <Greet query={LoggedQuery} queryRef={queryReference} /> : null }
-        </div>
-    );
+        return (
+            <div>
+                {queryReference != null ? <Greet query={LoggedQuery} queryRef={queryReference} /> : null }
+            </div>
+        );
+    }
 }
 
 function Greet(props: any){

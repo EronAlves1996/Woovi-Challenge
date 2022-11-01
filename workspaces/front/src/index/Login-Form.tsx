@@ -1,5 +1,6 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom";
+import { verifyLogin } from "./verifyLogin";
 
 export function LoginForm() {
     const {state} = useLocation();
@@ -14,7 +15,13 @@ export function LoginForm() {
         { name: "password", type: "password", label: "password", ...returnState("") }
     ]
     const navigate = useNavigate();
-    
+
+    useEffect(()=>{
+        (async ()=>{
+                const user = await verifyLogin();
+                if(user) navigate("/logged", { state: { user } });
+        })();
+    }, [])
    
     return (
         <form>
@@ -29,7 +36,5 @@ export function LoginForm() {
                 await navigate("/logged", { state: { email: formSettings[0].state, password: formSettings[1].state }  })
             }}>Enviar</button>
         </form >
-
-
     )
 }
