@@ -50,10 +50,10 @@ export function LoginForm() {
             <ErrorBoundary fallbackRender={({ error }) => <div>User not found!</div>} >
                 <Suspense fallback={"Loading..."} >
                     <form>
-                        {formSettings.map(form => (
-                            <div>
-                                <label htmlFor={form.name}>{form.label}</label>
-                                <input type={form.type} id={form.name} value={form.state} onChange={(e) => form.setState(e.target.value)} />
+                        {formSettings.map((form, idx) => (
+                            <div key={`div${idx}`}>
+                                <label htmlFor={form.name} key={`label${idx}`}>{form.label}</label>
+                                <input type={form.type} id={form.name} value={form.state} onChange={(e) => form.setState(e.target.value)} key={`input${idx}`}/>
                             </div>
                         ))}
                         <button type="button" onClick={() => tryLogin()}>Enviar</button>
