@@ -5,11 +5,12 @@ import './index.css'
 import {
   createBrowserRouter,
   RouterProvider,
-  Route
+  Route,
+  Navigate
 } from "react-router-dom";
 import { Logged } from './index/Logged';
-import { RelayEnvironmentProvider } from 'react-relay';
 import RelayEnvironment from './RelayEnvironment';
+import { RelayEnvironmentProvider } from 'react-relay';
 import { ErrorBoundary } from 'react-error-boundary';
 
 const router = createBrowserRouter([
@@ -19,18 +20,19 @@ const router = createBrowserRouter([
   },
   {
     path: '/logged',
-    element: <ErrorBoundary fallbackRender={({ error }) => <div>User not found!</div>}>
-      <Logged />
+    element:
+      <ErrorBoundary fallback={<Navigate to="/" state={{ msg: "Usuário ou senha incorretos" }} />} >
+        <Suspense fallback={"Loading..."} >
+          <Logged />
+        </Suspense>
       </ErrorBoundary>
   }
 ])
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <RelayEnvironmentProvider environment={RelayEnvironment} >
-      <Suspense fallback={"Loading..."} >
-        <React.StrictMode>
-          <RouterProvider router={router} />
-        </React.StrictMode>
-      </Suspense>
-  </RelayEnvironmentProvider >
+    <React.StrictMode>
+      <RouterProvider router={router} />
+    </React.StrictMode>
+  </RelayEnvironmentProvider>
 )

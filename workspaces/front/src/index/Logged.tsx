@@ -6,8 +6,8 @@ import RelayEnvironment from "../RelayEnvironment";
 export function Logged(props: any) {
     const { state } = useLocation();
 
-    const loginQuery = graphql`
-        query LoginFormQuery($email: String!, $password: String!){
+    const LoggedQuery = graphql`
+        query LoggedQuery($email: String!, $password: String!){
             loginInfo(loginInformation:{
                 email: $email
                 password: $password
@@ -16,23 +16,17 @@ export function Logged(props: any) {
             }
         }
         `;
-    
-    try{
-        const loadedQuery = loadQuery(RelayEnvironment, loginQuery, {
-            email: state.email,
-            password: state.password
-        });
-    
-        const data = usePreloadedQuery(loginQuery, loadedQuery) as {loginInfo: {name:string}};
-        return (
-            <div>
-                <h1>You are logged in {data.loginInfo.name}</h1>
-            </div>
-        );
-    } catch(ex){
-        return <Navigate to="/" />
-    }
-}
-    
+    const loadedQuery = loadQuery(RelayEnvironment, LoggedQuery, {
+        email: state.email,
+        password: state.password
+    });
 
-   
+    const data = usePreloadedQuery(LoggedQuery, loadedQuery) as { loginInfo: { name: string } };
+
+    return (
+        <div>
+            <h1>You are logged in {data.loginInfo.name}</h1>
+        </div>
+    );
+}
+

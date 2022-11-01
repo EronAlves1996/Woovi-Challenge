@@ -1,12 +1,8 @@
-import React, { useCallback, useState } from "react"
-
-import {
-    loadQuery
-} from 'react-relay/hooks';
-import RelayEnvironment from "../RelayEnvironment";
-import { Navigate, useLoaderData, useNavigate } from "react-router-dom";
+import React, { useState } from "react"
+import { useLocation, useNavigate } from "react-router-dom";
 
 export function LoginForm() {
+    const {state} = useLocation();
     const returnState = (param: any) => {
         let [state, setState] = useState(param);
         return {
@@ -22,6 +18,7 @@ export function LoginForm() {
    
     return (
         <form>
+            {state ? <p>{state.msg}</p> : <></>}
             {formSettings.map((form, idx) => (
                 <div key={`div${idx}`}>
                     <label htmlFor={form.name} key={`label${idx}`}>{form.label}</label>
