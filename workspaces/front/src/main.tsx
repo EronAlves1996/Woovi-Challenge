@@ -19,18 +19,18 @@ const router = createBrowserRouter([
   },
   {
     path: '/logged',
-    element: <Logged />
+    element: <ErrorBoundary fallbackRender={({ error }) => <div>User not found!</div>}>
+      <Logged />
+      </ErrorBoundary>
   }
 ])
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <RelayEnvironmentProvider environment={RelayEnvironment} >
-    <ErrorBoundary fallbackRender={({ error }) => <div>User not found!</div>} >
       <Suspense fallback={"Loading..."} >
         <React.StrictMode>
           <RouterProvider router={router} />
         </React.StrictMode>
       </Suspense>
-    </ErrorBoundary>
   </RelayEnvironmentProvider >
 )

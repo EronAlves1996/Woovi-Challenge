@@ -1,11 +1,10 @@
-import React, { useState } from "react"
-import graphql from "babel-plugin-relay/macro";
+import React, { useCallback, useState } from "react"
+
 import {
-    loadQuery,
-    usePreloadedQuery,
+    loadQuery
 } from 'react-relay/hooks';
 import RelayEnvironment from "../RelayEnvironment";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useLoaderData, useNavigate } from "react-router-dom";
 
 export function LoginForm() {
     const returnState = (param: any) => {
@@ -14,27 +13,14 @@ export function LoginForm() {
             state, setState
         }
     };
-
-    const navigate = useNavigate();
-
     const formSettings = [
         { name: "email", type: "text", label: "E-mail", ...returnState("") },
         { name: "password", type: "password", label: "password", ...returnState("") }
     ]
-
-    const loginQuery = graphql`
-        query LoginFormQuery($email: String!, $password: String!){
-            loginInfo(loginInformation:{
-                email: $email
-                password: $password
-            }){
-                name
-            }
-        }
-        `;
-
+    const navigate = useNavigate();
+    
+   
     return (
-
         <form>
             {formSettings.map((form, idx) => (
                 <div key={`div${idx}`}>
@@ -43,12 +29,7 @@ export function LoginForm() {
                 </div>
             ))}
             <button type="button" onClick={async () => {
-                const loadedQuery = loadQuery(RelayEnvironment, loginQuery, {
-                    email: formSettings[0].state,
-                    password: formSettings[1].state
-                });
-  
-                await navigate("/logged", {state: {loginQuery, loadedQuery}})
+                await navigate("/logged", { state: { email: formSettings[0].state, password: formSettings[1].state }  })
             }}>Enviar</button>
         </form >
 
