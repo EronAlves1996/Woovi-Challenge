@@ -7,11 +7,18 @@ import {
   RouterProvider,
   Route
 } from "react-router-dom";
+import { Logged } from './index/Logged';
+
+
 
 const router = createBrowserRouter ([
   {
     path:'/',
     element: <LoginForm />
+  },
+  {
+    path:'/logged',
+    element: <Logged />
   }
 ])
 

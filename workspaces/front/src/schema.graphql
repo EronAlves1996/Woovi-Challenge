@@ -1,0 +1,21 @@
+"""Exposes a URL that specifies the behavior of this scalar."""
+directive @specifiedBy(
+  """The URL that specifies the behavior of this scalar."""
+  url: String!
+) on SCALAR
+
+input LoginInformation {
+  email: String
+  password: String
+}
+
+type Query {
+  loginInfo(loginInformation: LoginInformation): User
+}
+
+type User {
+  name: String
+  email: String
+  password: String
+}
+
