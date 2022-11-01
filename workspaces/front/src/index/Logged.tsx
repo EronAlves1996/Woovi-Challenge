@@ -1,32 +1,45 @@
-import { loadQuery, usePreloadedQuery } from "react-relay";
-import { Navigate, useLocation } from "react-router";
+import { GraphQLTaggedNode, loadQuery, usePreloadedQuery, useQueryLoader } from "react-relay";
+import { useLocation } from "react-router";
 import graphql from "babel-plugin-relay/macro";
 import RelayEnvironment from "../RelayEnvironment";
+import { useEffect } from "react";
+
+const LoggedQuery = graphql`
+query LoggedQuery($email: String!, $password: String!){
+    loginInfo(loginInformation:{
+        email: $email
+        password: $password
+    }){
+        name
+    }
+}
+`;
+
+function makeQuery(query: GraphQLTaggedNode, vars: object) {
+    return loadQuery(RelayEnvironment, query, {
+        ...vars
+    })
+};
 
 export function Logged(props: any) {
     const { state } = useLocation();
+    
+    const [queryReference, loadQuery, disposeQuery] = useQueryLoader(LoggedQuery);
 
-    const LoggedQuery = graphql`
-        query LoggedQuery($email: String!, $password: String!){
-            loginInfo(loginInformation:{
-                email: $email
-                password: $password
-            }){
-                name
-            }
-        }
-        `;
-    const loadedQuery = loadQuery(RelayEnvironment, LoggedQuery, {
-        email: state.email,
-        password: state.password
-    });
-
-    const data = usePreloadedQuery(LoggedQuery, loadedQuery) as { loginInfo: { name: string } };
+    useEffect(()=>{
+        loadQuery({email: state.email, password: state.password});
+        return ()=> disposeQuery();
+    }, [loadQuery, disposeQuery, state])
 
     return (
         <div>
-            <h1>You are logged in {data.loginInfo.name}</h1>
+            {queryReference != null ? <Greet query={LoggedQuery} queryRef={queryReference} /> : null }
         </div>
     );
+}
+
+function Greet(props: any){
+    const data = usePreloadedQuery(props.query, props.queryRef) as { loginInfo: {name:string}}
+    return <h1> You are logged in { data!.loginInfo.name } </h1>
 }
 
