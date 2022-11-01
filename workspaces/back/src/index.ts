@@ -11,10 +11,9 @@ router.all(
   '/api',
   graphqlHTTP({
     schema: nschema,
-    graphiql: true,
+    graphiql: true
   }),
 );
-
 
 router.get("/", (ctx, next)=>{
   ctx.body="Hello World";
