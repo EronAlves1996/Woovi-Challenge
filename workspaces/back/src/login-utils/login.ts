@@ -34,9 +34,10 @@ const checkLogin = new graphql.GraphQLObjectType({
                 try {
                     const userRegistry = (await dao.read(email, password)).toObject();
                     const jws = jwt.sign({ user: userRegistry.name }, process.env.JWT_SECRET);
-                    context.cookies.set("JWT-Login", jws, {path: "127.0.0.1/"});
+                    context.cookies.set(process.env.COOKIE_NAME , jws, { domain:"127.0.0.1", path: "/", httpOnly: true });
                     return userRegistry;
                 } catch(ex) {
+                    console.log(ex);
                     throw new Error("Invalid credentials");
                 }
             }

@@ -1,28 +1,32 @@
 import React, { useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom";
+import { injectPath } from "./router-path-provider";
 import { verifyLogin } from "./verifyLogin";
 
 export function LoginForm() {
-    const {state} = useLocation();
-    const returnState = (param: any) => {
-        let [state, setState] = useState(param);
-        return {
-            state, setState
-        }
-    };
+
+    const { state, pathname } = useLocation();
+
+    const [emailState, setEmailState] = useState("");
+    const [passwordState, setPasswordState] = useState("");
+
     const formSettings = [
-        { name: "email", type: "text", label: "E-mail", ...returnState("") },
-        { name: "password", type: "password", label: "password", ...returnState("") }
+        { name: "email", type: "text", label: "E-mail", state: emailState, setState: setEmailState },
+        { name: "password", type: "password", label: "password", state: passwordState, setState: setPasswordState }
     ]
     const navigate = useNavigate();
 
-    useEffect(()=>{
-        (async ()=>{
-                const user = await verifyLogin();
-                if(user) navigate("/logged", { state: { user } });
+    useEffect(() => {
+        (async () => {
+            const user = await verifyLogin();
+            if (user) navigate("/logged", { state: { user } });
         })();
-    }, [])
-   
+    }, []);
+    
+    useEffect(()=>{
+        injectPath(pathname)
+    },[pathname])
+
     return (
         <form>
             {state ? <p>{state.msg}</p> : <></>}
@@ -33,7 +37,7 @@ export function LoginForm() {
                 </div>
             ))}
             <button type="button" onClick={async () => {
-                await navigate("/logged", { state: { email: formSettings[0].state, password: formSettings[1].state }  })
+                await navigate("/logged", { state: { email: formSettings[0].state, password: formSettings[1].state } })
             }}>Enviar</button>
         </form >
     )

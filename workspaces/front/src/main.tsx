@@ -11,6 +11,13 @@ import { Logged } from './index/Logged';
 import RelayEnvironment from './RelayEnvironment';
 import { RelayEnvironmentProvider } from 'react-relay';
 import { ErrorBoundary } from 'react-error-boundary';
+import styled from 'styled-components';
+import { Navbar } from './index/navbar';
+
+
+const Header = styled.header`
+`
+
 
 const router = createBrowserRouter([
   {
@@ -31,7 +38,11 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <RelayEnvironmentProvider environment={RelayEnvironment} >
     <React.StrictMode>
+      <Header>
+        <Navbar />
+      </Header>
       <RouterProvider router={router} />
+      <footer></footer>
     </React.StrictMode>
   </RelayEnvironmentProvider>
 )
