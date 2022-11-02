@@ -13,23 +13,16 @@ const Nav = styled.nav`
   height: 10%;
 `
 
-
 export function Navbar(props: any) {
-    let [actualPath, setActualPath] = useState("");
-    subscribeToPath(path => {
-        console.log("path", path)
-        setActualPath(path);
-        console.log("actualPath", actualPath);
-    });
-
-    useEffect(() => { }, [actualPath]);
+    const [actualPath, setActualPath] = useState("");
+    subscribeToPath(path => setActualPath(path));
 
     return (
         <Nav>
-            {(actualPath === "" || "/") ?
-                <Ul>
+            {(actualPath === "" || actualPath === "/") ?
+                (<Ul>
                     <Li>Home</Li>
-                </Ul> : null
+                </Ul>) : <p>You are seen this</p>
             }
         </Nav>
     )

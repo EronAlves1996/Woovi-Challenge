@@ -16,29 +16,30 @@ query LoggedQuery($email: String!, $password: String!){
 `;
 
 export function Logged(props: any) {
-    const { state,pathname } = useLocation();
-    useEffect(()=>injectPath(pathname), [pathname])
-    
-    if(state.user){
+    const { state, pathname } = useLocation();
+    useEffect(() => {
+        injectPath(pathname);
+    }, [])
+
+    if (state.user) {
         return <h1> You are logged in {state.user}</h1>
     } else {
         const [queryReference, loadQuery, disposeQuery] = useQueryLoader(LoggedQuery);
-        useEffect(()=>{
-            loadQuery({email: state.email, password: state.password});
-            injectPath(pathname);
-            return ()=> disposeQuery();
+        useEffect(() => {
+            loadQuery({ email: state.email, password: state.password });
+            return () => disposeQuery();
         }, [loadQuery, disposeQuery, state])
 
         return (
             <div>
-                {queryReference != null ? <Greet query={LoggedQuery} queryRef={queryReference} /> : null }
+                {queryReference != null ? <Greet query={LoggedQuery} queryRef={queryReference} /> : null}
             </div>
         );
     }
 }
 
-function Greet(props: any){
-    const data = usePreloadedQuery(props.query, props.queryRef) as { loginInfo: {name:string}}
-    return <h1> You are logged in { data!.loginInfo.name } </h1>
+function Greet(props: any) {
+    const data = usePreloadedQuery(props.query, props.queryRef) as { loginInfo: { name: string } }
+    return <h1> You are logged in {data!.loginInfo.name} </h1>
 }
 

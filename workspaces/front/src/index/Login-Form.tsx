@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom";
 import { injectPath } from "./router-path-provider";
 import { verifyLogin } from "./verifyLogin";
@@ -21,12 +21,9 @@ export function LoginForm() {
             const user = await verifyLogin();
             if (user) navigate("/logged", { state: { user } });
         })();
+        injectPath(pathname);
     }, []);
     
-    useEffect(()=>{
-        injectPath(pathname)
-    },[pathname])
-
     return (
         <form>
             {state ? <p>{state.msg}</p> : <></>}
