@@ -22,7 +22,11 @@ export function Logged(props: any) {
     }, [])
 
     if (state.user) {
-        return <h1> You are logged in {state.user}</h1>
+        return (
+            <div>
+                <h1> You are logged in {state.user}</h1>
+            </div>
+        );
     } else {
         const [queryReference, loadQuery, disposeQuery] = useQueryLoader(LoggedQuery);
         useEffect(() => {

@@ -1,16 +1,20 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components"
 import { subscribeToPath } from "./router-path-provider";
 
-
 const Ul = styled.ul`
+    display:flex;
 `
 
 const Li = styled.li`
+    list-style-type: none;
 `
 const Nav = styled.nav`
   background-color: #004F2D;
   height: 10%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5%;
 `
 
 export function Navbar(props: any) {
@@ -18,12 +22,17 @@ export function Navbar(props: any) {
     subscribeToPath(path => setActualPath(path));
 
     return (
-        <Nav>
-            {(actualPath === "" || actualPath === "/") ?
-                (<Ul>
-                    <Li>Home</Li>
-                </Ul>) : <p>You are seen this</p>
-            }
-        </Nav>
+        (actualPath !== "/") ?
+            (<Nav>
+                <Ul>
+                    <Li>Home </Li> |
+                    <Li>Amigos </Li> |
+                    <Li>Posts</Li>
+                </Ul>
+                <Ul>
+                    <Li>Configurações</Li> |
+                    <Li>Sair</Li>
+                </Ul>
+            </Nav>) : null
     )
 }

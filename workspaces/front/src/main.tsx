@@ -18,14 +18,13 @@ import { Navbar } from './index/navbar';
 const Header = styled.header`
 `
 
-
 const router = createBrowserRouter([
   {
     path: '/',
     element: <LoginForm />
   },
   {
-    path: '/logged',
+    path: '/home',
     element:
       <ErrorBoundary fallback={<Navigate to="/" state={{ msg: "Dados incorretos ou tentativa de acesso a recursos proibidos" }} />} >
         <Suspense fallback={"Loading..."} >

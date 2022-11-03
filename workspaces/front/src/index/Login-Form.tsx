@@ -19,23 +19,25 @@ export function LoginForm() {
     useEffect(() => {
         (async () => {
             const user = await verifyLogin();
-            if (user) navigate("/logged", { state: { user } });
+            if (user) navigate("/home", { state: { user } });
+            injectPath(pathname);
         })();
-        injectPath(pathname);
     }, []);
-    
+
     return (
-        <form>
-            {state ? <p>{state.msg}</p> : <></>}
-            {formSettings.map((form, idx) => (
-                <div key={`div${idx}`}>
-                    <label htmlFor={form.name} key={`label${idx}`}>{form.label}</label>
-                    <input type={form.type} id={form.name} value={form.state} onChange={(e) => form.setState(e.target.value)} key={`input${idx}`} />
-                </div>
-            ))}
-            <button type="button" onClick={async () => {
-                await navigate("/logged", { state: { email: formSettings[0].state, password: formSettings[1].state } })
-            }}>Enviar</button>
-        </form >
+        <div>
+            <form>
+                {state ? <p>{state.msg}</p> : <></>}
+                {formSettings.map((form, idx) => (
+                    <div key={`div${idx}`}>
+                        <label htmlFor={form.name} key={`label${idx}`}>{form.label}</label>
+                        <input type={form.type} id={form.name} value={form.state} onChange={(e) => form.setState(e.target.value)} key={`input${idx}`} />
+                    </div>
+                ))}
+                <button type="button" onClick={async () => {
+                    await navigate("/home", { state: { email: formSettings[0].state, password: formSettings[1].state } })
+                }}>Enviar</button>
+            </form >
+        </div>
     )
 }

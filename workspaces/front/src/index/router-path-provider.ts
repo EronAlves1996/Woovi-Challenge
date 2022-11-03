@@ -1,4 +1,3 @@
-
 let actualPath = "";
 const subscriptors: ((path:string) => void)[] = [];
 
