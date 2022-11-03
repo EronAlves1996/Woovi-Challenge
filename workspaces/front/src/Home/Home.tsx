@@ -1,7 +1,7 @@
 import { usePreloadedQuery, useQueryLoader } from "react-relay";
 import { useLocation } from "react-router";
 import graphql from "babel-plugin-relay/macro";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { injectPath } from "../resources/router-path-provider";
 import { FlexColumnDiv, FlexDiv } from "../shared/styledComps";
 import { PersonHomeInfo } from "./PersonHomeInfo";
@@ -36,16 +36,17 @@ export function Home(props: any) {
 
     const [queryReference, loadQuery, disposeQuery] = useQueryLoader(HomeQuery);
 
-    if (!state.user) {
-        useEffect(() => {
+
+    useEffect(() => {
+        if (state && !state.user) {
             loadQuery({ email: state.email, password: state.password });
             return () => disposeQuery();
-        }, [loadQuery, disposeQuery, state, queryReference]);
-    }
+        }
+    }, [loadQuery, disposeQuery, state]);
 
     return (
         <MasterDiv>
-            {state.user ? <Greet data={state.user} /> : queryReference ? null : <Greet query={HomeQuery} queryRef={queryReference} />}
+            {state && state.user ? <Greet data={state.user} /> : queryReference ? <Greet query={HomeQuery} queryRef={queryReference} /> : null}
             <AdjustedDiv>
                 <PersonHomeInfo />
                 <GeneralPostBoard />

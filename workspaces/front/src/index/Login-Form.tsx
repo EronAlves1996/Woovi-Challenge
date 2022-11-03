@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom";
 import { injectPath } from "../resources/router-path-provider";
-import { verifyLogin } from "../resources/verifyLogin";
 
 export function LoginForm() {
 
@@ -18,10 +17,6 @@ export function LoginForm() {
     
 
     useEffect(() => {
-        (async () => {
-            const user = await verifyLogin();
-            if (user) navigate("/home", { state: { user } });
-        })();
         injectPath(pathname);
     }, []);
 

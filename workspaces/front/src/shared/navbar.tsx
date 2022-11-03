@@ -10,11 +10,8 @@ const Li = styled.li`
     list-style-type: none;
 `
 const Nav = styled.nav`
-  
-  height: 10%;
   display: flex;
   justify-content: space-between;
-  padding: 0.5%;
 `
 
 export function Navbar(props: any) {

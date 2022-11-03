@@ -13,26 +13,33 @@ import { RelayEnvironmentProvider } from 'react-relay';
 import { ErrorBoundary } from 'react-error-boundary';
 import styled from 'styled-components';
 import { Navbar } from './shared/navbar';
+import { VerifyLogin } from './resources/verifyLogin';
 
 
 const Header = styled.header`
-height:10%;
-background-color: #004F2D;  
+  height: 1.5rem;
+  background-color: #004F2D;
+  padding: 0.4rem;  
 `
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <LoginForm />
+    element:
+      <VerifyLogin>
+        <LoginForm />
+      </VerifyLogin>
   },
   {
     path: '/home',
     element:
-      <ErrorBoundary fallback={<Navigate to="/" state={{ msg: "Dados incorretos ou tentativa de acesso a recursos proibidos" }} />} >
-        <Suspense fallback={"Loading..."} >
-          <Home />
-        </Suspense>
-      </ErrorBoundary>
+      <VerifyLogin>
+        <ErrorBoundary fallback={<div>"Erro interno de servidor"</div>} >
+          <Suspense fallback={"Loading..."} >
+            <Home />
+          </Suspense>
+        </ErrorBoundary >
+      </VerifyLogin>
   }
 ])
 
