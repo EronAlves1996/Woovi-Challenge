@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { injectPath } from "../resources/router-path-provider";
 
 export function LoginForm() {
@@ -14,7 +14,7 @@ export function LoginForm() {
         { name: "password", type: "password", label: "password", state: passwordState, setState: setPasswordState }
     ]
     const navigate = useNavigate();
-    
+
 
     useEffect(() => {
         injectPath(pathname);
@@ -33,7 +33,13 @@ export function LoginForm() {
                 <button type="button" onClick={async () => {
                     await navigate("/home", { state: { email: formSettings[0].state, password: formSettings[1].state } })
                 }}>Enviar</button>
-            </form >
+            </form>
+            <div>
+                <Link to="/recuperarsenha">Esqueci minha senha</Link>
+            </div>
+            <div>
+                <Link to="/cadastrar">Não é usuário? Cadastre-se!</Link>
+            </div>
         </div>
     )
 }

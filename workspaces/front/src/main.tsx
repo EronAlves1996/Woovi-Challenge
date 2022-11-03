@@ -5,7 +5,6 @@ import './index.css'
 import {
   createBrowserRouter,
   RouterProvider,
-  Navigate
 } from "react-router-dom";
 import { Home } from './Home/Home';
 import RelayEnvironment from './RelayEnvironment';
@@ -14,6 +13,8 @@ import { ErrorBoundary } from 'react-error-boundary';
 import styled from 'styled-components';
 import { Navbar } from './shared/navbar';
 import { VerifyLogin } from './resources/verifyLogin';
+import { routes } from './resources/routes.enum';
+import { Cadastrar } from './Cadastro/cadastro';
 
 
 const Header = styled.header`
@@ -24,14 +25,14 @@ const Header = styled.header`
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: routes.INDEX,
     element:
       <VerifyLogin>
         <LoginForm />
       </VerifyLogin>
   },
   {
-    path: '/home',
+    path: routes.HOME,
     element:
       <VerifyLogin>
         <ErrorBoundary fallback={<div>"Erro interno de servidor"</div>} >
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
           </Suspense>
         </ErrorBoundary >
       </VerifyLogin>
+  },
+  {
+    path: routes.CADASTRO,
+    element: <Cadastrar />
   }
 ])
 
