@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router";
+import { injectPath } from "../resources/router-path-provider";
 
 export function Cadastrar(props: any) {
+    const location = useLocation();
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -18,6 +21,10 @@ export function Cadastrar(props: any) {
         { name: "password", type: "password", label: "Senha", state: password, setState: setPassword },
         { name: "password-confirmation", type: "password", label: "Confirme sua senha", state: passwordConfirm, setState: setPasswordConfirm }
     ]
+
+    useEffect(()=>{
+        injectPath(location.pathname);
+    })
 
     return (
         <form action="">

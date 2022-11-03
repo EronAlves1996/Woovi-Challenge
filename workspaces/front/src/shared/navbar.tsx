@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components"
 import { subscribeToPath } from "../resources/router-path-provider";
 
@@ -15,10 +16,17 @@ const Nav = styled.nav`
 `
 
 export function Navbar(props: any) {
+    const navigate = useNavigate();
     const [actualPath, setActualPath] = useState("");
     subscribeToPath(path => setActualPath(path));
 
     return (
+        (actualPath === "/cadastrar") ?
+        <Nav>
+            <Ul>
+                <Li><a onClick={()=>navigate(-1)}>Página Inicial</a></Li>
+            </Ul>
+        </Nav> :
         (actualPath !== "/") ?
             (<Nav>
                 <Ul>
