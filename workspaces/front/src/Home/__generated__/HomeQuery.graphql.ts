@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<aa62bbee72a9c6bc8d7f34211f842c0f>>
+ * @generated SignedSource<<95bce54715e9690f9241101c9cd8c304>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,18 +9,18 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Query } from 'relay-runtime';
-export type LoginFormQuery$variables = {
+export type HomeQuery$variables = {
   email: string;
   password: string;
 };
-export type LoginFormQuery$data = {
+export type HomeQuery$data = {
   readonly loginInfo: {
     readonly name: string | null;
   } | null;
 };
-export type LoginFormQuery = {
-  response: LoginFormQuery$data;
-  variables: LoginFormQuery$variables;
+export type HomeQuery = {
+  response: HomeQuery$data;
+  variables: HomeQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -78,7 +78,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "LoginFormQuery",
+    "name": "HomeQuery",
     "selections": (v1/*: any*/),
     "type": "Query",
     "abstractKey": null
@@ -87,20 +87,20 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "LoginFormQuery",
+    "name": "HomeQuery",
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "e94b58d594ac03ce59789402ab1aee6d",
+    "cacheID": "0620c7c7d32dce10606ec748920a3acb",
     "id": null,
     "metadata": {},
-    "name": "LoginFormQuery",
+    "name": "HomeQuery",
     "operationKind": "query",
-    "text": "query LoginFormQuery(\n  $email: String!\n  $password: String!\n) {\n  loginInfo(loginInformation: {email: $email, password: $password}) {\n    name\n  }\n}\n"
+    "text": "query HomeQuery(\n  $email: String!\n  $password: String!\n) {\n  loginInfo(loginInformation: {email: $email, password: $password}) {\n    name\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "7e6892623b6f8ddaf779d1a5c3eb2855";
+(node as any).hash = "1cb7d27d62f5f5425c2512f64e6ddda9";
 
 export default node;

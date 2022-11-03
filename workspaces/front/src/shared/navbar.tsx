@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components"
-import { subscribeToPath } from "./router-path-provider";
+import { subscribeToPath } from "../resources/router-path-provider";
 
 const Ul = styled.ul`
     display:flex;
@@ -10,7 +10,7 @@ const Li = styled.li`
     list-style-type: none;
 `
 const Nav = styled.nav`
-  background-color: #004F2D;
+  
   height: 10%;
   display: flex;
   justify-content: space-between;
@@ -25,8 +25,8 @@ export function Navbar(props: any) {
         (actualPath !== "/") ?
             (<Nav>
                 <Ul>
-                    <Li>Home </Li> |
-                    <Li>Amigos </Li> |
+                    <Li>Home</Li> |
+                    <Li>Amigos</Li> |
                     <Li>Posts</Li>
                 </Ul>
                 <Ul>

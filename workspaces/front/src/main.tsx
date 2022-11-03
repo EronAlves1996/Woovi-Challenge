@@ -7,15 +7,17 @@ import {
   RouterProvider,
   Navigate
 } from "react-router-dom";
-import { Logged } from './index/Logged';
+import { Home } from './Home/Home';
 import RelayEnvironment from './RelayEnvironment';
 import { RelayEnvironmentProvider } from 'react-relay';
 import { ErrorBoundary } from 'react-error-boundary';
 import styled from 'styled-components';
-import { Navbar } from './index/navbar';
+import { Navbar } from './shared/navbar';
 
 
 const Header = styled.header`
+height:10%;
+background-color: #004F2D;  
 `
 
 const router = createBrowserRouter([
@@ -28,7 +30,7 @@ const router = createBrowserRouter([
     element:
       <ErrorBoundary fallback={<Navigate to="/" state={{ msg: "Dados incorretos ou tentativa de acesso a recursos proibidos" }} />} >
         <Suspense fallback={"Loading..."} >
-          <Logged />
+          <Home />
         </Suspense>
       </ErrorBoundary>
   }
