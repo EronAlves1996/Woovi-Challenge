@@ -3,7 +3,10 @@ import { useLocation } from "react-router";
 import graphql from "babel-plugin-relay/macro";
 import { useEffect } from "react";
 import { injectPath } from "../resources/router-path-provider";
-import { FlexDiv } from "../shared/styledComps";
+import { FlexColumnDiv, FlexDiv } from "../shared/styledComps";
+import { PersonHomeInfo } from "./PersonHomeInfo";
+import { GeneralPostBoard } from "./GeneralPostBoard";
+import styled from "styled-components";
 
 const HomeQuery = graphql`
 query HomeQuery($email: String!, $password: String!){
@@ -16,9 +19,20 @@ query HomeQuery($email: String!, $password: String!){
 }
 `;
 
+const AdjustedDiv = styled.div`
+    width: 70vw;
+    display: flex;
+    justify-content: space-between;
+`;
+
+const MasterDiv = styled(FlexColumnDiv)`
+    align-items: center;
+    justify-content: center;
+`;
+
 export function Home(props: any) {
     const { state, pathname } = useLocation();
-    injectPath(pathname);
+    useEffect(() => injectPath(pathname));
 
     const [queryReference, loadQuery, disposeQuery] = useQueryLoader(HomeQuery);
 
@@ -26,24 +40,26 @@ export function Home(props: any) {
         useEffect(() => {
             loadQuery({ email: state.email, password: state.password });
             return () => disposeQuery();
-        }, [loadQuery, disposeQuery, state, queryReference])
+        }, [loadQuery, disposeQuery, state, queryReference]);
     }
 
     return (
-        <div>
+        <MasterDiv>
             {state.user ? <Greet data={state.user} /> : queryReference ? null : <Greet query={HomeQuery} queryRef={queryReference} />}
-            <FlexDiv>
+            <AdjustedDiv>
                 <PersonHomeInfo />
                 <GeneralPostBoard />
-            </FlexDiv>
-        </div>
+            </AdjustedDiv>
+        </MasterDiv>
     );
 }
 
 function Greet(props: any) {
-    if (props.data) return <p>Logado como {props.data}</p>
-
+    const P = styled.p`
+        align-self: flex-end;
+    `
+    if (props.data) return <P>Logado como {props.data}</P>
     const data = usePreloadedQuery(props.query, props.queryRef) as { loginInfo: { name: string } };
-    return <p>Logado como {data.loginInfo.name}</p>;
+    return <P>Logado como {data.loginInfo.name}</P>;
 }
 

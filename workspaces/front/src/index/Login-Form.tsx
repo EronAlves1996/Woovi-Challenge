@@ -15,13 +15,14 @@ export function LoginForm() {
         { name: "password", type: "password", label: "password", state: passwordState, setState: setPasswordState }
     ]
     const navigate = useNavigate();
-    injectPath(pathname);
+    
 
     useEffect(() => {
         (async () => {
             const user = await verifyLogin();
             if (user) navigate("/home", { state: { user } });
         })();
+        injectPath(pathname);
     }, []);
 
     return (

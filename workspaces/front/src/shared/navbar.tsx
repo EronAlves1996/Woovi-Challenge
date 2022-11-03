@@ -27,7 +27,7 @@ export function Navbar(props: any) {
                 <Ul>
                     <Li>Home</Li> |
                     <Li>Amigos</Li> |
-                    <Li>Posts</Li>
+                    <Li>Perfil</Li>
                 </Ul>
                 <Ul>
                     <Li>Configurações</Li> |
