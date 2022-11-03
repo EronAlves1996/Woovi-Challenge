@@ -28,7 +28,6 @@
  --brighter-darker-green:#00E07F;
  --brighter-blue:#74A0C0;
 
- 
 /* end-palette */
 
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
@@ -38,7 +37,7 @@
 
   color-scheme: light dark;
   color: var(--default-black);
-  background-color: var(--default-white);
+  background-color: #f3f9fd;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;

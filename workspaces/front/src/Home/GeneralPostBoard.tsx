@@ -2,16 +2,23 @@ import styled from "styled-components";
 import { FlexColumnDiv } from "../shared/styledComps";
 
 const ExampleDiv = styled.div`
-    width: 10%;
-    height: 5%;
-    margin: 1%;
-    background-color: #74A0C0;
+    width: 99%;
+    height: 120%;
+    margin: 0.5% auto;
+    background-color: #b3ffdf;
+`   
+
+
+const GeneralPostBoardDiv = styled(FlexColumnDiv)`
+    width: 80%;
 `
 
 export function GeneralPostBoard(props: any) {
     return (
-        <FlexColumnDiv>
+        <GeneralPostBoardDiv>
+            <textarea name="" id="" cols={30} rows={10}></textarea>
+            <button>Postar</button>
             <ExampleDiv>Some text</ExampleDiv>
-        </FlexColumnDiv>
+        </GeneralPostBoardDiv>
     );
 }
